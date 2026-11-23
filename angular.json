@@ -1,0 +1,71 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "projects": {
+    "catalog-frontend": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "catalog",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/catalog-frontend",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "server": "src/main.server.ts",
+            "ssr": { "entry": "src/server.ts" },
+            "outputMode": "server",
+            "security": {
+              "allowedHosts": ["localhost", "127.0.0.1", "catalog.localhost"]
+            },
+            "polyfills": [],
+            "tsConfig": "tsconfig.app.json",
+            "preserveSymlinks": true,
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              { "glob": "**/*", "input": "public" }
+            ],
+            "styles": [
+              "../frontend-libs-21/projects/catalog/src/lib/styles/_catalog-tokens.scss",
+              "src/styles.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                { "type": "initial", "maximumWarning": "500kB", "maximumError": "900kB" },
+                { "type": "anyComponentStyle", "maximumWarning": "8kB", "maximumError": "16kB" }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "catalog-frontend:build:production" },
+            "development": { "buildTarget": "catalog-frontend:build:development" }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "runner": "vitest",
+            "buildTarget": "catalog-frontend:build"
+          }
+        }
+      }
+    }
+  },
+  "cli": { "analytics": false }
+}

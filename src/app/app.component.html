@@ -1,0 +1,51 @@
+<a class="skip-link" href="#main-content">Skip to content</a>
+@if (facade.site$ | async; as site) {
+  <div class="utility-bar">
+    <div class="container utility-bar__inner">
+      <a [href]="'tel:' + site.contact.phone">{{ site.contact.phone }}</a>
+      <a [href]="'mailto:' + site.contact.email">{{ site.contact.email }}</a>
+      <span>{{ site.contact.address }}</span>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" [routerLink]="facade.localizedPath('/')" aria-label="NexaCore Solutions home">
+        <span class="brand__mark" aria-hidden="true">N</span>
+        <span>{{ site.name }}</span>
+      </a>
+      <button class="menu-button" type="button" (click)="menuOpen.set(!menuOpen())"
+              [attr.aria-expanded]="menuOpen()" aria-controls="primary-navigation">
+        <span class="menu-button__icon" aria-hidden="true"><i></i><i></i><i></i></span><span>Menu</span>
+      </button>
+      <nav id="primary-navigation" class="primary-nav" [class.primary-nav--open]="menuOpen()" aria-label="Primary">
+        <a [routerLink]="facade.localizedPath('/products')" routerLinkActive="active">Products</a>
+        <a [routerLink]="facade.localizedPath('/services')" routerLinkActive="active">Services</a>
+        <a [routerLink]="facade.localizedPath('/about')" routerLinkActive="active">About</a>
+        <a [routerLink]="facade.localizedPath('/news')" routerLinkActive="active">News</a>
+        <a [routerLink]="facade.localizedPath('/gallery')" routerLinkActive="active">Gallery</a>
+        <a [routerLink]="facade.localizedPath('/contact')" routerLinkActive="active">Contact</a>
+      </nav>
+      <div class="locale-switcher" aria-label="Language">
+        <button type="button" (click)="switchLocale('en')" [attr.aria-pressed]="facade.locale() === 'en'">EN</button>
+        <button type="button" (click)="switchLocale('bn')" [attr.aria-pressed]="facade.locale() === 'bn'">বাংলা</button>
+      </div>
+    </div>
+  </header>
+}
+<main id="main-content" tabindex="-1"><router-outlet /></main>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div><strong>NexaCore Solutions</strong><p>Fixture-backed Phase 1 public catalog experience.</p></div>
+    <nav aria-label="Products and company">
+      <a [routerLink]="facade.localizedPath('/products')">Products</a>
+      <a [routerLink]="facade.localizedPath('/services')">Services</a>
+      <a [routerLink]="facade.localizedPath('/clients')">Clients</a>
+      <a [routerLink]="facade.localizedPath('/partners')">Partners</a>
+    </nav>
+    <nav aria-label="Legal">
+      <a [routerLink]="facade.localizedPath('/privacy')">Privacy</a>
+      <a [routerLink]="facade.localizedPath('/terms')">Terms</a>
+    </nav>
+  </div>
+  <p class="container footer-note">Synthetic demonstration content. No reference-site assets are used.</p>
+</footer>
