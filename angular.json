@@ -18,7 +18,7 @@
             "ssr": { "entry": "src/server.ts" },
             "outputMode": "server",
             "security": {
-              "allowedHosts": ["localhost", "127.0.0.1", "catalog.localhost"]
+              "allowedHosts": ["localhost", "127.0.0.1", "*.localhost"]
             },
             "polyfills": [],
             "tsConfig": "tsconfig.app.json",
@@ -50,6 +50,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json",
+            "port": 4400,
+            "allowedHosts": ["localhost", ".localhost", "127.0.0.1"]
+          },
           "configurations": {
             "production": { "buildTarget": "catalog-frontend:build:production" },
             "development": { "buildTarget": "catalog-frontend:build:development" }

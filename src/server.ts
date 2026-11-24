@@ -8,6 +8,7 @@ const browserDirectory = resolve(serverDirectory, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
+app.get('/healthz', (_request, response) => response.status(200).type('text/plain').send('ok\n'));
 app.use(express.static(browserDirectory, { maxAge: '1y', index: false, redirect: false }));
 app.use((request, response, next) => {
   angularApp.handle(request)
